@@ -12,13 +12,10 @@ namespace GithubFetcher
     {
         static void Main(string[] args)
         {
-            var s = Process.GetProcesses().Where(x=> x.ProcessName == "node").ToList();
-            var l = Process.GetProcessById(s.FirstOrDefault().Id);
-            var b = s.Select(x=> x.StartInfo);
-            
-            if (args.Length == 1)
+            if (args.Length == 1 && args[0] == "--generate")
             {
                 File.WriteAllText(
+                    Environment.CurrentDirectory + "/settings-sample.json",
                     JsonConvert.SerializeObject(
                         new SettingsObject() {
                             Projects = new System.Collections.Generic.List<Project>() {
@@ -40,8 +37,7 @@ namespace GithubFetcher
                             }
                         }, 
                         Formatting.Indented
-                    ),
-                    Environment.CurrentDirectory + "/settings-sample.json"
+                    )
                 );
                 return;
             }
