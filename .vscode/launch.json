@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}/bin/Debug/net5.0/GithubFetcher.dll",
             "args": [],
             "env": {
-                "GITHUB_TOKEN": "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"
+                "SETTINGS_FILE": "C:\\Mega\\Programs\\GithubFetcher\\settings.json"
             },
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
