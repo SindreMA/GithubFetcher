@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static SimpleExec.Command;
 
 namespace GithubFetcher
@@ -45,9 +47,35 @@ namespace GithubFetcher
         {
             foreach (var process in Process.GetProcesses())
             {
-                //process
+                var workingDirectory = GetProcessWorkingDirectory(process.Id);
             }
             return false;
+        }
+
+        public List<string> SplitStringOnString(string str, string splitOn)
+        {
+            var split = str.Split(new[] { splitOn }, StringSplitOptions.None);
+            return split.ToList();
+        }
+        private object GetProcessWorkingDirectory(int id)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+              var output = Read("pwdx", id.ToString());
+              var WorkingDir = string.Join(": ",SplitStringOnString(output, ": ").Skip(1));
+              return WorkingDir;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                var output = Read("wmic", "process where ProcessId=\"" + id + "\" get ExecutablePath", "");
+                var WorkingDir = string.Join("", SplitStringOnString(output, " ").Skip(1));
+                return WorkingDir;
+            }
+            else
+            {
+                return "";
+            }
+            return null;
         }
 
         private void RunPreUpdateCommands(Project project)
@@ -69,7 +97,7 @@ namespace GithubFetcher
         private bool GitPull(string directory)
         {
             var output = Read("git", "pull", directory);
-            if (output.Contains("Already up-to-date.")) return false;
+            if (output.ToLower().Contains("already up to date")) return false;
             return true;
         }
 
