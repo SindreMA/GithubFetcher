@@ -123,12 +123,22 @@ namespace GithubFetcher
             var args = GetArguments(commandLine).ToList();
             return args;
         }
+
+        private string RemoveStringFromStart(string input, string start)
+        {
+            if (input.StartsWith(start))
+            {
+                return input.Substring(start.Length);
+            }
+            return input;
+        }
         
         private List<string> GetLinxArguments(int processId)
         {
             var commandLine = RemoveAllNewlines(Read("ps", $"-p {processId} -o args", ""));
+            commandLine = RemoveStringFromStart(commandLine, "COMMAND");
             System.Console.WriteLine("Command line: " + commandLine);
-            var args = GetArguments(commandLine).Skip(1).ToList();
+            var args = GetArguments(commandLine).ToList();
             return args;
         }
 
