@@ -15,6 +15,8 @@ C:\Mega\Programs\GithubFetcher\obj\Debug\net5.0\ref\GithubFetcher.dll
 C:\Mega\Programs\GithubFetcher\obj\Debug\net5.0\GithubFetcher.pdb
 C:\Mega\Programs\GithubFetcher\obj\Debug\net5.0\GithubFetcher.genruntimeconfig.cache
 C:\Mega\Programs\GithubFetcher\bin\Debug\net5.0\Octokit.dll
-C:\Mega\Programs\GithubFetcher\obj\Debug\net5.0\GithubFetcher.csproj.CopyComplete
 C:\Mega\Programs\GithubFetcher\bin\Debug\net5.0\SimpleExec.dll
 C:\Mega\Programs\GithubFetcher\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Mega\Programs\GithubFetcher\bin\Debug\net5.0\System.CodeDom.dll
+C:\Mega\Programs\GithubFetcher\bin\Debug\net5.0\System.Management.dll
+C:\Mega\Programs\GithubFetcher\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\System.Management.dll

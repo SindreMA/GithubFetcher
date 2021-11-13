@@ -6,6 +6,7 @@ namespace GithubFetcher
     {
         public int Order { get; set; }
         public string Directory { get; set; }
+        public string ProcessName { get; set; }        
         public string CommandAfter { get; set; }
         public string CommandBefore { get; set; }
         public bool UpdateOnChanges { get; set; }

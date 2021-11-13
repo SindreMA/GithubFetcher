@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace GithubFetcher
 {
@@ -62,6 +63,7 @@ namespace GithubFetcher
 
             checkTask.Start();
             checkTask.Wait();
+            Thread.Sleep(5000);
             System.Console.WriteLine("Done");
         }
     }
