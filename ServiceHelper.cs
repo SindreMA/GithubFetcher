@@ -57,21 +57,27 @@ namespace GithubFetcher
 
         private bool IsRunning(Project project, out Process _process)
         {
+            System.Console.WriteLine("Checking if {0} is running...", project.ProcessName);
             foreach (var process in Process.GetProcessesByName(project.ProcessName.ToLower()))
             {
+                System.Console.WriteLine("Checking process: " + process.ProcessName);
                 if (process.ProcessName.ToLower().Contains(project.ProcessName.ToLower()))
                 {
+                    System.Console.WriteLine("Matches wanted process");;
                     var workingDirectory = GetProcessWorkingDirectory(process.Id);
-
+                    System.Console.WriteLine("Working directory: " + workingDirectory);
                     if (workingDirectory != null && workingDirectory.ToLower().Contains(project.Directory.ToLower()))
                     {
+                        System.Console.WriteLine("Matches wanted directory");
                         var args = GetProcessArguments(process).Select(x=> x.ToLower());
                         var projectArgs = GetArguments(project.CommandAfter);
-
+                        System.Console.WriteLine("Project args: " + string.Join(",", projectArgs));
+                        System.Console.WriteLine("args args: " + string.Join(",", args));
                         foreach (var item in projectArgs)
                         {
                             if (args.Contains(item.ToLower()))
                             {
+                                System.Console.WriteLine("Matches wanted arguments");
                                 _process = process;
                                 return true;
                             }
