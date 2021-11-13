@@ -127,6 +127,7 @@ namespace GithubFetcher
         private List<string> GetLinxArguments(int processId)
         {
             var commandLine = RemoveAllNewlines(Read("ps", $"-p {processId} -o args", ""));
+            System.Console.WriteLine("Command line: " + commandLine);
             var args = GetArguments(commandLine).Skip(1).ToList();
             return args;
         }
