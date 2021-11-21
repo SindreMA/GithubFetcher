@@ -44,7 +44,7 @@ namespace GithubFetcher
             {
                 if (isRunning) StopProcess(_process);
                 new Task(()=> {
-                    RunCommand(project.CommandAfter, project.Directory);        
+                    RunCommand(project.CommandAfter, project.Directory,project.EnvironmentVariables);        
                 }).Start();
             }
         }
