@@ -169,17 +169,44 @@ namespace GithubFetcher
         private void RunPreUpdateCommands(Project project)
         {
             if (string.IsNullOrEmpty(project.CommandBefore)) return;
-            RunCommand(project.CommandBefore, project.Directory);
+            RunCommand(project.CommandBefore, project.Directory, project.EnvironmentVariables);
         }
 
-        private void RunCommand(string command, string directory)
+        private void RunCommand(string command, string directory, List<EnvironmentVariable> environmentVariables)
         {
+            var envs = environmentVariables.ToDictionary(x => x.Name, x => x.Value) as IDictionary<string,string>;
+
             if (command.Contains(" "))
             {
                 var split = command.Split(' ').ToList();
-                Run(split.FirstOrDefault(), string.Join(' ',split.Skip(1)), directory);
+                RunProgram(split.FirstOrDefault(), string.Join(' ',split.Skip(1)), directory, environmentVariables);
             }
-            else Run(command, "", directory);
+            
+            else RunProgram(command, "", directory, environmentVariables);
+        }
+
+        private void RunProgram(string command,string arguments, string directory, List<EnvironmentVariable> environmentVariables)
+        {
+            new Task(() => {
+                var startInfo = new ProcessStartInfo()
+                    {
+                        FileName = command,
+                        Arguments = arguments,
+                        WorkingDirectory = directory,
+                        CreateNoWindow = true,
+                    };
+                if (environmentVariables != null) {
+                    foreach (var env in environmentVariables)
+                    {
+                        startInfo.EnvironmentVariables.Add(env.Name, env.Value);
+                    }
+                }
+
+                new Process()
+                {
+                    StartInfo = startInfo
+                }.Start();
+            }).Start();
         }
 
         private bool GitPull(string directory)
