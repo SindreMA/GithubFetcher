@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Mega\\Programs\\GithubFetcher\\GithubFetcher.csproj": {}
+    "C:\\Code\\GithubFetcher\\GithubFetcher.csproj": {}
   },
   "projects": {
-    "C:\\Mega\\Programs\\GithubFetcher\\GithubFetcher.csproj": {
+    "C:\\Code\\GithubFetcher\\GithubFetcher.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Mega\\Programs\\GithubFetcher\\GithubFetcher.csproj",
+        "projectUniqueName": "C:\\Code\\GithubFetcher\\GithubFetcher.csproj",
         "projectName": "GithubFetcher",
-        "projectPath": "C:\\Mega\\Programs\\GithubFetcher\\GithubFetcher.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Mega\\Programs\\GithubFetcher\\obj\\",
+        "projectPath": "C:\\Code\\GithubFetcher\\GithubFetcher.csproj",
+        "packagesPath": "C:\\Users\\Sindre\\.nuget\\packages\\",
+        "outputPath": "C:\\Code\\GithubFetcher\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Sindre\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,8 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.myget.org/F/discord-net/api/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -76,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

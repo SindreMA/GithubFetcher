@@ -194,6 +194,7 @@ namespace GithubFetcher
                         Arguments = arguments,
                         WorkingDirectory = directory,
                         CreateNoWindow = true,
+                        RedirectStandardOutput = true
                     };
                 if (environmentVariables != null) {
                     foreach (var env in environmentVariables)
@@ -202,10 +203,8 @@ namespace GithubFetcher
                     }
                 }
                 System.Console.WriteLine($"Running program: {directory} | {command} {arguments}");
-                new Process()
-                {
-                    StartInfo = startInfo
-                }.Start();
+                var p = Process.Start(startInfo);
+                p.StandardOutput.ReadToEnd();
             }).Start();
         }
 
