@@ -201,7 +201,7 @@ namespace GithubFetcher
                         startInfo.EnvironmentVariables.Add(env.Name, env.Value);
                     }
                 }
-
+                System.Console.WriteLine($"Running program: {directory} | {command} {Arguments}");
                 new Process()
                 {
                     StartInfo = startInfo
