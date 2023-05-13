@@ -42,9 +42,9 @@ namespace GithubFetcher
             var isRunning = IsRunning(project,out Process _process);
             if (project.AlwaysRunCommand || (isNew && project.UpdateOnChanges) || (project.RunIfNotRunning && !isRunning))
             {
-                RunPreRunCommands(project);
                 if (isRunning) StopProcess(_process);
                 new Task(()=> {
+                    RunPreRunCommands(project);
                     RunCommand(project.CommandAfter, project.Directory,project.EnvironmentVariables);        
                 }).Start();
             }
@@ -194,7 +194,6 @@ namespace GithubFetcher
 
         private void RunProgram(string command,string arguments, string directory, List<EnvironmentVariable> environmentVariables)
         {
-            new Task(() => {
                 var startInfo = new ProcessStartInfo()
                     {
                         FileName = command,
@@ -212,7 +211,6 @@ namespace GithubFetcher
                 System.Console.WriteLine($"Running program: {directory} | {command} {arguments}");
                 var p = Process.Start(startInfo);
                 p.StandardOutput.ReadToEnd();
-            }).Start();
         }
 
         private bool GitPull(string directory)
