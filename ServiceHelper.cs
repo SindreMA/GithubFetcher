@@ -42,6 +42,7 @@ namespace GithubFetcher
             var isRunning = IsRunning(project,out Process _process);
             if (project.AlwaysRunCommand || (isNew && project.UpdateOnChanges) || (project.RunIfNotRunning && !isRunning))
             {
+                RunPreRunCommands(project);
                 if (isRunning) StopProcess(_process);
                 new Task(()=> {
                     RunCommand(project.CommandAfter, project.Directory,project.EnvironmentVariables);        
@@ -167,6 +168,12 @@ namespace GithubFetcher
         }
 
         private void RunPreUpdateCommands(Project project)
+        {
+            if (string.IsNullOrEmpty(project.CommandBeforeGit)) return;
+            RunCommand(project.CommandBeforeGit, project.Directory, project.EnvironmentVariables);
+        }
+
+        private void RunPreRunCommands(Project project)
         {
             if (string.IsNullOrEmpty(project.CommandBefore)) return;
             RunCommand(project.CommandBefore, project.Directory, project.EnvironmentVariables);
