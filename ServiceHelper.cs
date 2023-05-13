@@ -76,9 +76,9 @@ namespace GithubFetcher
                         System.Console.WriteLine("args args: " + string.Join(",", args));
                         foreach (var item in projectArgs)
                         {
-                            if (args.Contains(item.ToLower()))
+                            if (args.Contains(item.ToLower()) || project.SoftMatch)
                             {
-                                System.Console.WriteLine("Matches wanted arguments");
+                                System.Console.WriteLine("Matches wanted arguments " + $" SoftMatch: {project.SoftMatch}");
                                 _process = process;
                                 return true;
                             }
@@ -194,6 +194,7 @@ namespace GithubFetcher
 
         private void RunProgram(string command,string arguments, string directory, List<EnvironmentVariable> environmentVariables)
         {
+            new Task(() => {
                 var startInfo = new ProcessStartInfo()
                     {
                         FileName = command,
@@ -211,6 +212,7 @@ namespace GithubFetcher
                 System.Console.WriteLine($"Running program: {directory} | {command} {arguments}");
                 var p = Process.Start(startInfo);
                 p.StandardOutput.ReadToEnd();
+            }).Start();
         }
 
         private bool GitPull(string directory)
