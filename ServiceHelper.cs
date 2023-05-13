@@ -65,14 +65,23 @@ namespace GithubFetcher
                 System.Console.WriteLine("Checking process: " + process.ProcessName);
                 if (process.ProcessName.ToLower().Contains(project.ProcessName.ToLower()))
                 {
-                    System.Console.WriteLine("Matches wanted process");;
-                    var workingDirectory = GetProcessWorkingDirectory(process.Id);
-                    System.Console.WriteLine("Working directory: " + workingDirectory);
-                    if (workingDirectory != null && workingDirectory.ToLower().Contains(project.Directory.ToLower()))
+                    try
                     {
-                        System.Console.WriteLine("Matches wanted directory");
-                        process.Kill();
-                        process.WaitForExit();
+                        System.Console.WriteLine("Matches wanted process");;
+                        var workingDirectory = GetProcessWorkingDirectory(process.Id);
+                        System.Console.WriteLine("Working directory: " + workingDirectory);
+                        if (workingDirectory != null && workingDirectory.ToLower().Contains(project.Directory.ToLower()))
+                        {
+
+                            System.Console.WriteLine("Matches wanted directory");
+                            process.Kill();
+                            process.WaitForExit();    
+
+
+                        }
+                    }
+                    catch (System.Exception)
+                    {
                     }
                 }
             }
