@@ -57,7 +57,7 @@ namespace GithubFetcher
             _process.WaitForExit();
         }
 
-        private bool StopAllProcessesInWorkingDirectory(Project project)
+        private void StopAllProcessesInWorkingDirectory(Project project)
         {
             System.Console.WriteLine("Checking if {0} is running...", project.ProcessName);
             foreach (var process in Process.GetProcessesByName(project.ProcessName.ToLower()))
@@ -76,8 +76,6 @@ namespace GithubFetcher
                     }
                 }
             }
-            _process = null;
-            return false;
         }
 
 
