@@ -10,6 +10,7 @@ namespace GithubFetcher
         public string CommandAfter { get; set; }
         public string CommandBefore { get; set; }
         public string CommandBeforeGit { get; set; }
+        public bool SoftMatch { get; set; }
         public bool UpdateOnChanges { get; set; }
         public bool RunIfNotRunning { get; set; }
         public bool AlwaysRunCommand { get; set; }
