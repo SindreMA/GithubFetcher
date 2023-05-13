@@ -43,6 +43,7 @@ namespace GithubFetcher
             if (project.AlwaysRunCommand || (isNew && project.UpdateOnChanges) || (project.RunIfNotRunning && !isRunning))
             {
                 if (isRunning) StopProcess(_process);
+                if (project.SoftMatch) StopAllProcessesInWorkingDirectory(project);
                 new Task(()=> {
                     RunPreRunCommands(project);
                     RunCommand(project.CommandAfter, project.Directory,project.EnvironmentVariables);        
@@ -55,6 +56,30 @@ namespace GithubFetcher
             _process.Kill();
             _process.WaitForExit();
         }
+
+        private bool StopAllProcessesInWorkingDirectory(Project project)
+        {
+            System.Console.WriteLine("Checking if {0} is running...", project.ProcessName);
+            foreach (var process in Process.GetProcessesByName(project.ProcessName.ToLower()))
+            {
+                System.Console.WriteLine("Checking process: " + process.ProcessName);
+                if (process.ProcessName.ToLower().Contains(project.ProcessName.ToLower()))
+                {
+                    System.Console.WriteLine("Matches wanted process");;
+                    var workingDirectory = GetProcessWorkingDirectory(process.Id);
+                    System.Console.WriteLine("Working directory: " + workingDirectory);
+                    if (workingDirectory != null && workingDirectory.ToLower().Contains(project.Directory.ToLower()))
+                    {
+                        System.Console.WriteLine("Matches wanted directory");
+                        process.Kill();
+                        process.WaitForExit();
+                    }
+                }
+            }
+            _process = null;
+            return false;
+        }
+
 
         private bool IsRunning(Project project, out Process _process)
         {
