@@ -40,11 +40,14 @@ namespace GithubFetcher
         {
             if (string.IsNullOrEmpty(project.CommandAfter)) return;
             var isRunning = IsRunning(project,out Process _process);
+            System.Console.WriteLine("Is running: " + isRunning);
             if (project.AlwaysRunCommand || (isNew && project.UpdateOnChanges) || (project.RunIfNotRunning && !isRunning))
             {
+                System.Console.WriteLine("Running stuff, before stop");
                 if (isRunning) StopProcess(_process);
                 if (project.SoftMatch) StopAllProcessesInWorkingDirectory(project);
                 new Task(()=> {
+                    System.Console.WriteLine("Running stuff");
                     RunPreRunCommands(project);
                     RunCommand(project.CommandAfter, project.Directory,project.EnvironmentVariables);        
                 }).Start();
@@ -208,13 +211,14 @@ namespace GithubFetcher
         private void RunPreRunCommands(Project project)
         {
             if (string.IsNullOrEmpty(project.CommandBefore)) return;
+            System.Console.WriteLine("Running pre run commands: " + project.CommandBefore);
             RunCommand(project.CommandBefore, project.Directory, project.EnvironmentVariables);
         }
 
         private void RunCommand(string command, string directory, List<EnvironmentVariable> environmentVariables)
         {
             var envs = environmentVariables.ToDictionary(x => x.Name, x => x.Value) as IDictionary<string,string>;
-
+            System.Console.WriteLine($"Running command: {directory} | {command}");
             if (command.Contains(" "))
             {
                 var split = command.Split(' ').ToList();
