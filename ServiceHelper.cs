@@ -92,7 +92,10 @@ namespace GithubFetcher
                 }
             }
         }
-
+        public string TrimSlash(string str)
+        {
+            return str.TrimEnd('\\').TrimEnd('/');            
+        }
 
         private bool IsRunning(Project project, out Process _process)
         {
@@ -104,8 +107,8 @@ namespace GithubFetcher
                 {
                     System.Console.WriteLine("Matches wanted process");;
                     var workingDirectory = GetProcessWorkingDirectory(process.Id);
-                    System.Console.WriteLine("Working directory: "  + workingDirectory + " vs " + project.Directory);
-                    if (workingDirectory != null && workingDirectory.ToLower().Contains(project.Directory.ToLower()))
+                    System.Console.WriteLine("Working directory: "  + TrimSlash(workingDirectory) + " vs " + TrimSlash(project.Directory));
+                    if (workingDirectory != null && TrimSlash(workingDirectory).ToLower().Contains(TrimSlash(project.Directory).ToLower()))
                     {
                         System.Console.WriteLine("Matches wanted directory");
                         var args = GetProcessArguments(process).Select(x=> x.ToLower());
