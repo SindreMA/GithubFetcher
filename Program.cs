@@ -48,11 +48,13 @@ namespace GithubFetcher
             if (settingsFile == null)
             {
                 Console.WriteLine("Please set the environment variable SETTINGS_FILE to the path of your settings file.");
+                Thread.Sleep(5000);
                 return;
             }
             if (!File.Exists(settingsFile))
             {
                 Console.WriteLine($"The settings file {settingsFile} does not exist.");
+                Thread.Sleep(5000);
                 return;
             }
             var settings = JsonConvert.DeserializeObject<SettingsObject>(File.ReadAllText(settingsFile));

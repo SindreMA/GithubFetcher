@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ConsoleCopy
 {
@@ -16,27 +20,43 @@ namespace ConsoleCopy
             {
                 get { return _current.Encoding; }
             }
-            private static readonly HttpClient client = new HttpClient();
 
+            class hubResponse
+            {
+                public string message { get; set; }
+                public string console { get; set; }
+                
+            }
 
-            public override void WriteLine(string value)
+            public override async void WriteLine(string value)
             {
                 _current.WriteLine(value);
                 try
                 {
-                    var values = new Dictionary<string, string>
-                    {
-                        { "console", "GitFetcher - " + Environment.MachineName },
-                        { "message", "value" }
-                    };
+                    using (HttpClient httpClient = new HttpClient()) {
+                    
+                    
+                        var  obj = new hubResponse () { 
+                            console = "GitFetcher - " + Environment.MachineName,
+                            message = value
+                        };
 
-                    var content = new FormUrlEncodedContent(values);
+                        var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj));                        
+                        var byteContent = new ByteArrayContent(buffer);
+                        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    var response = client.PostAsync("https://api.sindrema.com/api/Hubs/send",content).Result;
-                    var responseString = response.Content.ReadAsStringAsync().Result;
-
+                        
+                        using (HttpResponseMessage response = await httpClient.PostAsync(("https://api.sindrema.com/api/Hubs/send"), byteContent))
+                        {
+                            response.EnsureSuccessStatusCode();
+                            string res = await response.Content.ReadAsStringAsync();
+                        }
+                    }
+                
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { 
+                    
+                }
             }
         }
 
