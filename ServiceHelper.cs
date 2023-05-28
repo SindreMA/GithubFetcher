@@ -249,7 +249,7 @@ namespace GithubFetcher
                 if (environmentVariables != null) {
                     foreach (var env in environmentVariables)
                     {
-                        startInfo.EnvironmentVariables.Add(env.Name, env.Value);
+                        startInfo.EnvironmentVariables[env.Name] =  env.Value;
                     }
                 }
                 System.Console.WriteLine($"Running program: {directory} | {command} {arguments}");
