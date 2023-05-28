@@ -109,9 +109,14 @@ namespace GithubFetcher
                         var projectArgs = GetArguments(project.CommandAfter);
                         System.Console.WriteLine("Project args: " + string.Join(",", projectArgs));
                         System.Console.WriteLine("args args: " + string.Join(",", args));
+                        if (project.SoftMatch) {
+                            System.Console.WriteLine("Matches wanted arguments " + $" SoftMatch: {project.SoftMatch}");
+                            _process = process;
+                            return true;
+                        }
                         foreach (var item in projectArgs)
                         {
-                            if (args.Contains(item.ToLower()) || project.SoftMatch)
+                            if (args.Contains(item.ToLower()))
                             {
                                 System.Console.WriteLine("Matches wanted arguments " + $" SoftMatch: {project.SoftMatch}");
                                 _process = process;
