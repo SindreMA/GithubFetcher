@@ -75,7 +75,7 @@ namespace GithubFetcher
                     {
                         System.Console.WriteLine("Matches wanted process");;
                         var workingDirectory = GetProcessWorkingDirectory(process.Id);
-                        System.Console.WriteLine("Working directory: " + workingDirectory);
+                        System.Console.WriteLine("Working directory: " + workingDirectory + " vs " + project.Directory);
                         if (workingDirectory != null && workingDirectory.ToLower().Contains(project.Directory.ToLower()))
                         {
 
