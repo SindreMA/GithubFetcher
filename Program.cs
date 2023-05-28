@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using ConsoleCopy;
 
 namespace GithubFetcher
 {
@@ -13,6 +14,7 @@ namespace GithubFetcher
     {
         static void Main(string[] args)
         {
+            DualOut.Init();
             if (args.Length == 1 && args[0] == "--generate")
             {
                 File.WriteAllText(
