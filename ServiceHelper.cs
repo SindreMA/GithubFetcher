@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using static SimpleExec.Command;
 using System.Management;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace GithubFetcher
 {
@@ -254,7 +255,7 @@ namespace GithubFetcher
                 }
                 System.Console.WriteLine($"Running program: {directory} | {command} {arguments}");
                 var p = Process.Start(startInfo);
-                p.WaitForInputIdle();
+                Thread.Sleep(5000);
             });
             _task.Start();
             _task.Wait();
