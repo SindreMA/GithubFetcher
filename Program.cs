@@ -67,7 +67,6 @@ namespace GithubFetcher
 
             checkTask.Start();
             checkTask.Wait();
-            Thread.Sleep(5000);
             System.Console.WriteLine("Done");
         }
     }
