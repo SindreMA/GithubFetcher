@@ -94,7 +94,7 @@ namespace GithubFetcher
         }
         public string TrimSlash(string str)
         {
-            return str.TrimEnd('\\').TrimEnd('/');            
+            return str.TrimEnd('\\').TrimEnd('/').TrimStart('\\').TrimStart('/');
         }
 
         private bool IsRunning(Project project, out Process _process)
