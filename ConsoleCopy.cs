@@ -32,7 +32,9 @@ namespace ConsoleCopy
 
                     var content = new FormUrlEncodedContent(values);
 
-                    var response = client.PostAsync("https://api.sindrema.com/api/Hubs/send",content);
+                    var response = client.PostAsync("https://api.sindrema.com/api/Hubs/send",content).Result;
+                    var responseString = response.Content.ReadAsStringAsync().Result;
+
                 }
                 catch (Exception ex) { }
             }
