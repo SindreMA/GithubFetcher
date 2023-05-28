@@ -55,6 +55,7 @@ namespace ConsoleCopy
                 
                 }
                 catch (Exception ex) { 
+                    Console.Write(ex.Message);
                     
                 }
             }

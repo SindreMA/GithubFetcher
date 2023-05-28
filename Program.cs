@@ -60,7 +60,7 @@ namespace GithubFetcher
             var settings = JsonConvert.DeserializeObject<SettingsObject>(File.ReadAllText(settingsFile));
             
             Console.WriteLine("Starting fetching");
-            var checkTask = new Task (async () => {
+            var checkTask = new Task (() => {
                 var helper = new ServiceHelper(settings);
                 helper.CheckForUpdates();
             });
