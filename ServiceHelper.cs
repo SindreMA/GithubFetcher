@@ -248,7 +248,6 @@ namespace GithubFetcher
                         Arguments = arguments,
                         WorkingDirectory = directory,
                         CreateNoWindow = true,
-                        RedirectStandardOutput = true
                     };
                 if (environmentVariables != null) {
                     foreach (var env in environmentVariables)
