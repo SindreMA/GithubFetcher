@@ -254,7 +254,6 @@ namespace GithubFetcher
                 }
                 System.Console.WriteLine($"Running program: {directory} | {command} {arguments}");
                 var p = Process.Start(startInfo);
-                p.StandardOutput.ReadToEnd();
             });
             _task.Start();
             _task.Wait();
